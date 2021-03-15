@@ -1,28 +1,25 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view/>
+     <!-- 3.使用组件 -->
+     <main-tab-bar/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
+//1.导入所需要的模块
+import MainTabBar from './components/content/MainTabBar'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    //2.注册组件
+      MainTabBar
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+      
+           @import "./assets/css/base.css";  /* 因为在vue.config.js中已经配置了别名 所以这里可以直接使用   */    
 </style>
