@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="">
+  <div class="goods-item" @click="itemClick">
+    <img v-lazy="showImage" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -18,6 +18,27 @@
         default() {
           return {}
         }
+      }
+    },
+    //是为了在详情页的请求数据中也能使用这个模块 但是因为两个的数据结构不一样 所以只能这样写了
+    /* 之后在上边的src中绑定一下这个属性 */
+    computed: {
+        showImage() {
+          return this.goodsItem.image || this.goodsItem.show.img
+        }
+    },
+    methods: {
+      imageLoad() {
+        //下边是为了 在详情页加载完图片后不告诉首页 告诉详情页 在首页加载加载完之后告诉首页
+        /* if(this.$route.path.indexOf('/home')) {
+           this.$bus.$emit('homeitemImageLoad')
+        } else if(this.$route.path.indexOf('/detail') ) {
+          this.$bus.$emit('detailitemImageLoad')
+        } */
+        this.$bus.$emit('itemImageLoad')
+      },
+      itemClick() {
+        this.$router.push('/detail/' + this.goodsItem.iid)
       }
     }
   }
